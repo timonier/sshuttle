@@ -1,0 +1,34 @@
+#!/bin/sh
+set -ex
+
+fail() {
+    echo $1 1>&2
+    echo "Usage: $0 [install|uninstall]" 1>&2
+    exit 1
+}
+
+if [ $# -lt 1 ] ; then
+    fail "Invalid number of arguments."
+fi
+
+if [ $(id -u) -ne 0 ] ; then
+    fail "Impossible to prepare the system without root privileges."
+fi
+
+if [ $(uname) != "Linux" ] ; then
+    fail "Impossible to prepare another operating system than Linux."
+fi
+
+case $1 in
+    install )
+        curl -sLo /usr/local/bin/sshuttle "https://github.com/timonier/sshuttle/raw/master/bin/sshuttle"
+        chmod +x /usr/local/bin/sshuttle
+    ;;
+
+    uninstall )
+        rm -f /usr/local/bin/sshuttle
+    ;;
+
+    * )
+        fail "Argument $1 is invalid."
+esac

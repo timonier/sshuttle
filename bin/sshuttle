@@ -1,0 +1,12 @@
+#!/bin/sh
+
+docker run \
+    -i=$([ -t 0 ] && echo "true" || echo "false") \
+    -t=$([ -t 0 ] && echo "true" || echo "false") \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /etc/timezone:/etc/timezone:ro \
+    -v "${HOME}:/root:ro" \
+    --cap-add NET_ADMIN \
+    --net host \
+    --rm \
+    ${IMAGE:-timonier/sshuttle}:${TAG:-0.78.1} "$@"
