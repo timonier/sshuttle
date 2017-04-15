@@ -1,12 +1,12 @@
-FROM debian:stable-slim
+FROM python:latest
 
 LABEL \
     maintainer="Morgan Auchede <morgan.auchede@gmail.com>"
 
 ENV \
-    SSHUTTLE_VERSION=0.78.1
+    SSHUTTLE_VERSION=latest
 
-RUN set -x \
+RUN set -eux \
 
     # Prepare system
 
@@ -16,32 +16,32 @@ RUN set -x \
 
     # Install packages
 
-    && BUILD_DEPS="ca-certificates curl git" \
+    && export BUILD_DEPS="ca-certificates curl git" \
 
-    && apt-get install -y --no-install-recommends \
+    && apt-get install --no-install-recommends --yes \
            ${BUILD_DEPS} \
            iptables \
-           python \
-           python-setuptools \
            ssh-client \
 
+    # Install dumb-entrypoint
+
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/bin/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s install \
+
     # Install sshuttle
+
+    && export $(curl "https://raw.githubusercontent.com/timonier/version-lister/release/generated/sshuttle/${SSHUTTLE_VERSION}" | xargs) \
 
     && git clone --branch "v${SSHUTTLE_VERSION}" "https://github.com/sshuttle/sshuttle.git" /tmp/sshuttle \
     && sh -c "cd /tmp/sshuttle && ./setup.py install" \
 
-    # Install timonier/dumb-entrypoint
-
-    && curl -sL "https://github.com/timonier/dumb-entrypoint/raw/master/bin/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s install \
-
     # Clean
 
-    && apt-get remove -y --purge \
+    && apt-get remove --purge --yes \
            ${BUILD_DEPS} \
-    && apt-get autoremove -y --purge \
+    && apt-get autoremove --purge --yes \
 
-    && rm -rf \
+    && rm --force --recursive \
            /tmp/* \
            /var/lib/apt/lists/*
 
-ENTRYPOINT [ "dumb-init" , "--" , "dumb-entrypoint" , "sshuttle" ]
+ENTRYPOINT [ "dumb-init" , "--" , "dumb-entrypoint" ]

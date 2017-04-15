@@ -1,5 +1,5 @@
 #!/bin/sh
-set -ex
-cd "`dirname "$0"`/../src"
+set -eux
+cd "$(dirname "$0")/../src"
 
-docker build -t ${IMAGE:-timonier/sshuttle}:${TAG:-0.78.1} .
+docker build --tag "${IMAGE:-timonier/sshuttle}:${TAG:-latest}" .
