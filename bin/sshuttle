@@ -1,4 +1,12 @@
 #!/bin/sh
+set -eu
+
+SSH_KEY="${SSH_KEY:-"${HOME}/.ssh/id_rsa"}"
+
+ADDITIONAL_VOLUME=""
+if [ -f "${SSH_KEY}" ] ; then
+    ADDITIONAL_VOLUME="--volume ${SSH_KEY}:/root/.ssh/id_rsa:ro"
+fi
 
 docker run \
     --cap-add NET_ADMIN \
@@ -8,5 +16,5 @@ docker run \
     --tty="$([ -t 0 ] && echo "true" || echo "false")" \
     --volume /etc/localtime:/etc/localtime:ro \
     --volume /etc/timezone:/etc/timezone:ro \
-    --volume "${HOME}:/root:ro" \
+    ${ADDITIONAL_VOLUME} \
     "${IMAGE:-timonier/sshuttle}:${TAG:-latest}" sshuttle "$@"

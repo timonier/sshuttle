@@ -35,7 +35,9 @@ sshuttle \
 # client: Connected.
 ```
 
-__Note__: To stop sshuttle, you have to send a `SIGINT` signal. If you send a `SIGTERM` or a `SIGKILL`, the iptables chain `sshuttle-12300` will not be flushed.
+__Note 1__: To stop sshuttle, you have to send a `SIGINT` signal. If you send a `SIGTERM` or a `SIGKILL`, the iptables chain `sshuttle-12300` will not be flushed.
+
+__Note 2__: You can define the path of the SSH key via the environment variable `SSH_KEY` (default value is `${HOME}/.ssh/id_rsa`).
 
 ## Contributing
 
