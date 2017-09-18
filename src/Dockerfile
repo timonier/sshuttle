@@ -6,7 +6,7 @@ LABEL \
 ENV \
     SSHUTTLE_VERSION=latest
 
-RUN set -eux \
+RUN set -ex \
 
     # Prepare system
 
@@ -23,16 +23,18 @@ RUN set -eux \
            iptables \
            ssh-client \
 
-    # Install dumb-entrypoint
-
-    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/bin/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s install \
-
-    # Install sshuttle
+    # Install sshuttle/sshuttle
 
     && export $(curl "https://raw.githubusercontent.com/timonier/version-lister/release/generated/sshuttle/${SSHUTTLE_VERSION}" | xargs) \
 
     && git clone --branch "v${SSHUTTLE_VERSION}" "https://github.com/sshuttle/sshuttle.git" /tmp/sshuttle \
     && sh -c "cd /tmp/sshuttle && ./setup.py install" \
+
+    # Install timonier/dumb-entrypoint
+
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/dumb-entrypoint/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/dumb-init/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/gosu/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
 
     # Clean
 
