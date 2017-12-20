@@ -22,4 +22,4 @@ docker run \
     --volume /etc/localtime:/etc/localtime:ro \
     --volume /etc/timezone:/etc/timezone:ro \
     ${ADDITIONAL_VOLUME} \
-    "${IMAGE:-timonier/sshuttle}:${TAG:-latest}" sshuttle "$@"
+    "${IMAGE:-timonier/sshuttle}:${TAG:-latest}" "$(basename "$0")" "$@"

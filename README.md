@@ -4,13 +4,6 @@ Transparent proxy server that works as a poor man's VPN
 
 ## Installation
 
-Copy `bin/sshuttle` into your executable folder (like `/usr/local/bin` or `$HOME/bin`):
-
-```sh
-sudo curl --location --output /usr/local/bin/sshuttle "https://github.com/timonier/sshuttle/raw/master/bin/sshuttle"
-sudo chmod +x /usr/local/bin/sshuttle
-```
-
 Linux users can use the [installer](https://github.com/timonier/sshuttle/blob/master/bin/installer):
 
 ```sh
