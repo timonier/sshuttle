@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:slim
 
 LABEL \
     maintainer="Morgan Auchede <morgan.auchede@gmail.com>"
@@ -15,9 +15,10 @@ RUN set -ex \
 \
     # Install packages
 \
-    && export BUILD_DEPS="ca-certificates curl git" \
+    && export BUILD_DEPS="curl git" \
     && apt-get install --no-install-recommends --yes \
            ${BUILD_DEPS} \
+           ca-certificates \
            iptables \
            ssh-client \
 \
