@@ -3,7 +3,7 @@ set -e
 
 # Check environment
 
-export PATH=$(echo "${PATH}:/usr/sbin" | awk -v RS=":" -v ORS=":" '!a[$1]++{if (NR > 1) printf ORS; printf $a[$1]}')
+export PATH=$(echo "${PATH}:/usr/sbin:/sbin:/bin" | awk -v RS=":" -v ORS=":" '!a[$1]++{if (NR > 1) printf ORS; printf $a[$1]}')
 
 # Run command
 
