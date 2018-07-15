@@ -12,7 +12,7 @@ curl --location "https://github.com/timonier/sshuttle/raw/master/bin/installer" 
 
 ## Usage
 
-Run the command `sshutle`:
+Run the command `sshuttle`:
 
 ```sh
 # See all sshuttle options
@@ -41,6 +41,8 @@ __Note 2__: You can define the path of the SSH key via the environment variable 
 5. Submit a pull request.
 
 __Note__: Use the script `bin/build` to test your modifications locally.
+
+If you like / use this project, please let me known by adding a [★](https://help.github.com/articles/about-stars/) on the [GitHub repository](https://github.com/timonier/sshuttle).
 
 ## Links
 
