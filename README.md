@@ -7,8 +7,20 @@ Transparent proxy server that works as a poor man's VPN
 Linux users can use the [installer](https://github.com/timonier/sshuttle/blob/master/bin/installer):
 
 ```sh
+# Define installation folder
+
+export INSTALL_DIRECTORY=/usr/bin
+
+# Use local installation
+
+sudo bin/installer install
+
+# Use remote installation
+
 curl --location "https://github.com/timonier/sshuttle/raw/master/bin/installer" | sudo sh -s -- install
 ```
+
+__Note__: If you do not define `INSTALL_DIRECTORY`, `installer` will use in `/usr/local/bin`.
 
 ## Usage
 
@@ -21,10 +33,7 @@ sshuttle --help
 
 # Run sshuttle
 
-sshuttle \
-    --remote username@sshserver \
-    --ssh-cmd 'ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null' \
-    0/0
+sshuttle --remote username@sshserver --ssh-cmd 'ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null' 0/0
 # client: Connected.
 ```
 

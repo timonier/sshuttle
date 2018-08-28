@@ -1,26 +1,10 @@
 #!/bin/sh
-set -e
-
-# Check environment
-
-export PATH=$(echo "${PATH}:/usr/sbin:/sbin:/bin" | awk -v RS=":" -v ORS=":" '!a[$1]++{if (NR > 1) printf ORS; printf $a[$1]}')
-
-# Run command
+set -e -u
 
 ADDITIONAL_VOLUME=""
-SSH_KEY="${SSH_KEY:-"${HOME}/.ssh/id_rsa"}"
-if [ -f "${SSH_KEY}" ] ; then
-    ADDITIONAL_VOLUME="--volume ${SSH_KEY}:/root/.ssh/id_rsa:ro"
+SSH_KEY="${SSH_KEY:-"${HOME}"/.ssh/id_rsa}"
+if [ -f "${SSH_KEY}" ]; then
+    ADDITIONAL_VOLUME=--volume="${SSH_KEY}":/root/.ssh/id_rsa:ro
 fi
 
-docker run \
-    --cap-add NET_ADMIN \
-    --init \
-    --interactive \
-    --net host \
-    --rm \
-    --tty="$([ -t 0 ] && echo "true" || echo "false")" \
-    --volume /etc/localtime:/etc/localtime:ro \
-    --volume /etc/timezone:/etc/timezone:ro \
-    ${ADDITIONAL_VOLUME} \
-    "${IMAGE:-timonier/sshuttle}:${TAG:-latest}" "$(basename "$0")" "$@"
+docker run --cap-add NET_ADMIN --init --interactive --net host --rm --tty="$([ -t 0 ] && echo "true" || echo "false")" --volume /etc/localtime:/etc/localtime:ro --volume /etc/timezone:/etc/timezone:ro "${ADDITIONAL_VOLUME}" "${IMAGE:-timonier/sshuttle}":"${TAG:-latest}" "$(basename "$0")" "$@"
