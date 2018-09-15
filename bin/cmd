@@ -1,10 +1,19 @@
 #!/bin/sh
 set -e -u
 
+fail() {
+    echo 1>&2 "$1"
+    exit 255
+}
+
+if [ "$(uname)" != "Linux" ]; then
+    fail "Current OS is not supported."
+fi
+
 ADDITIONAL_VOLUME=""
 SSH_KEY="${SSH_KEY:-"${HOME}"/.ssh/id_rsa}"
 if [ -f "${SSH_KEY}" ]; then
     ADDITIONAL_VOLUME=--volume="${SSH_KEY}":/root/.ssh/id_rsa:ro
 fi
 
-docker run --cap-add NET_ADMIN --init --interactive --net host --rm --tty="$([ -t 0 ] && echo "true" || echo "false")" --volume /etc/localtime:/etc/localtime:ro --volume /etc/timezone:/etc/timezone:ro "${ADDITIONAL_VOLUME}" "${IMAGE:-timonier/sshuttle}":"${TAG:-latest}" "$(basename "$0")" "$@"
+exec docker run --cap-add NET_ADMIN --init --interactive --net host --rm --tty="$([ -t 0 ] && echo "true" || echo "false")" --volume /etc/localtime:/etc/localtime:ro --volume /etc/timezone:/etc/timezone:ro "${ADDITIONAL_VOLUME}" "${IMAGE:-timonier/sshuttle}":"${TAG:-latest}" "$(basename "$0")" "$@"

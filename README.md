@@ -4,8 +4,6 @@ Transparent proxy server that works as a poor man's VPN
 
 ## Installation
 
-Linux users can use the [installer](https://github.com/timonier/sshuttle/blob/master/bin/installer):
-
 ```sh
 # Define installation folder
 
