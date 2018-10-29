@@ -1,13 +1,13 @@
 #!/bin/sh
 set -e -u
 
-fail() {
+_fail() {
     echo 1>&2 "$1"
     exit 255
 }
 
 if [ "$(uname)" != "Linux" ]; then
-    fail "Current OS is not supported."
+    _fail "Current OS is not supported."
 fi
 
 ADDITIONAL_VOLUME=""
