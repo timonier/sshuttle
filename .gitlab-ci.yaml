@@ -1,0 +1,16 @@
+stages:
+    - deploy
+
+# ---
+
+deploy:image:
+    before_script:
+        - 'apk add --no-cache --no-progress ca-certificates curl'
+    image:
+        entrypoint: ['']
+        name: alpine:latest
+    only:
+        - master
+    script:
+        - 'curl --request POST "https://cloud.docker.com/api/build/v1/source/1a5e5258-139a-474b-8871-d82737797387/trigger/${DOCKER_CLOUD_TOKEN}/call/"'
+    stage: deploy

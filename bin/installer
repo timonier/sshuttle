@@ -25,7 +25,7 @@ case "$1" in
         if [ -t 0 ]; then
             cp cmd "${INSTALL_DIRECTORY}"/sshuttle
         else
-            curl --location --output "${INSTALL_DIRECTORY}"/sshuttle "https://github.com/timonier/sshuttle/raw/master/bin/cmd"
+            curl --location --output "${INSTALL_DIRECTORY}"/sshuttle "https://gitlab.com/timonier/sshuttle/raw/master/bin/cmd"
         fi
 
         chmod +x "${INSTALL_DIRECTORY}"/sshuttle

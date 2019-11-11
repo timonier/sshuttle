@@ -15,7 +15,7 @@ sudo bin/installer install
 
 # Use remote installation
 
-curl --location "https://github.com/timonier/sshuttle/raw/master/bin/installer" | sudo sh -s -- install
+curl --location "https://gitlab.com/timonier/sshuttle/raw/master/bin/installer" | sudo sh -s -- install
 ```
 
 __Note__: If you do not define `INSTALL_DIRECTORY`, `installer` will use in `/usr/local/bin`.
@@ -45,15 +45,17 @@ __Note 2__: You can define the path of the SSH key via the environment variable 
 2. Create your branch: `git checkout -b my-new-feature`.
 3. Commit your changes: `git commit -am 'Add some feature'`.
 4. Push to the branch: `git push origin my-new-feature`.
-5. Submit a pull request.
+5. Submit a [merge request](https://docs.gitlab.com/ee/user/project/merge_requests/).
 
-__Note__: Use the script `bin/build-image` to test your modifications locally.
+__Note 1__: [GitHub repository](https://github.com/timonier/sshuttle) is a mirror. [Merge request](https://docs.gitlab.com/ee/user/project/merge_requests/) has to be submitted to the [GitLab repository](https://gitlab.com/timonier/sshuttle).
 
-If you like / use this project, please let me known by adding a [★](https://help.github.com/articles/about-stars/) on the [GitHub repository](https://github.com/timonier/sshuttle).
+__Note 2__: Use the script `bin/build-image` to test your modifications locally.
+
+If you like / use this project, please let me known by adding a [★](https://help.github.com/articles/about-stars/) on the [GitHub repository](https://github.com/timonier/sshuttle) or on the [GitLab repository](https://gitlab.com/timonier/sshuttle).
 
 ## Links
 
 * [image "timonier/sshuttle"](https://hub.docker.com/r/timonier/sshuttle/)
 * [sshuttle/sshuttle](https://github.com/sshuttle/sshuttle)
-* [timonier/dumb-entrypoint](https://github.com/timonier/dumb-entrypoint)
-* [timonier/version-lister](https://github.com/timonier/version-lister)
+* [timonier/dumb-entrypoint](https://gitlab.com/timonier/dumb-entrypoint)
+* [timonier/version-lister](https://gitlab.com/timonier/version-lister)
