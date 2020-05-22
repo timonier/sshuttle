@@ -16,4 +16,4 @@ if [ -f "${SSH_KEY}" ]; then
     ADDITIONAL_VOLUME=--volume="${SSH_KEY}":/root/.ssh/id_rsa:ro
 fi
 
-exec docker run --cap-add NET_ADMIN --init --interactive --net host --rm --tty="$([ -t 0 ] && echo "true" || echo "false")" --volume /etc/localtime:/etc/localtime:ro --volume /etc/timezone:/etc/timezone:ro "${ADDITIONAL_VOLUME}" "${IMAGE:-timonier/sshuttle}":"${TAG:-latest}" "$(basename "$0")" "$@"
+exec docker run --cap-add NET_ADMIN --init --interactive --net host --rm --tty="$([ -t 0 ] && echo "true" || echo "false")" --volume /etc/localtime:/etc/localtime:ro --volume /etc/timezone:/etc/timezone:ro "${ADDITIONAL_VOLUME}" "${IMAGE:-registry.gitlab.com/timonier/sshuttle}":"${TAG:-latest}" "$(basename "$0")" "$@"
